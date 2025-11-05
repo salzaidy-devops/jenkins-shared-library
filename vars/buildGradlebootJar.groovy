@@ -2,6 +2,6 @@
 
 def call() {
     echo "building the application for branch $BRANCH_NAME"
-    sh "./gradlew bootJar" // using wrapper version of gradle
-//    sh "gradle bootJar"
+    // sh "./gradlew bootJar" // using wrapper version of gradle
+   sh "gradle bootJar"
 }
