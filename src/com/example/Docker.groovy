@@ -36,13 +36,20 @@ class Docker implements Serializable {
                         passwordVariable: 'PASS'
                 )
         ]) {
-            script.sh "echo ${script.PASS} | docker login -u ${script.USER} --password-stdin"
+//            script.sh "echo ${script.PASS} | docker login -u ${script.USER} --password-stdin"
             script.sh 'echo "$PASS" | docker login -u "$USER" --password-stdin'
         }
     }
 
     private def ecrLogin() {
-        script.echo "Logging in to AWS ECR"
+        def registry = script.env.DOCKER_ECR_REPO_SERVER
+        if (!registry) {
+            script.error("DOCKER_ECR_REPO_SERVER is not set")
+        }
+
+//        script.echo "Logging in to AWS ECR"
+        script.echo "Logging in to AWS ECR: ${registry}"
+
         script.withCredentials([
                 script.usernamePassword(
                         credentialsId: 'ecr-credentials',
@@ -50,8 +57,9 @@ class Docker implements Serializable {
                         passwordVariable: 'PASS'
                 )
         ]) {
-            script.sh "echo ${script.PASS} | docker login -u ${script.USER} --password-stdin"
-            script.sh 'echo "$PASS" | docker login -u "$USER" --password-stdin'
+//            script.sh "echo ${script.PASS} | docker login -u ${script.USER} --password-stdin"
+//            script.sh 'echo "$PASS" | docker login -u "$USER" --password-stdin'
+            script.sh "echo \"\$PASS\" | docker login -u \"\$USER\" --password-stdin ${registry}"
         }
     }
 
