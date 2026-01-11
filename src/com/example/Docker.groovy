@@ -21,11 +21,8 @@ class Docker implements Serializable {
         } else {
             dockerHubLogin()
         }
-
-//        script.withCredentials([script.usernamePassword(credentialsId: 'docker-hub-repo', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-//            script.sh "echo ${script.PASS} | docker login -u ${script.USER} --password-stdin"
-//        }
     }
+
 
     private def dockerHubLogin() {
         script.echo "Logging in to Docker Hub"
@@ -47,7 +44,6 @@ class Docker implements Serializable {
             script.error("DOCKER_ECR_REPO_SERVER is not set")
         }
 
-//        script.echo "Logging in to AWS ECR"
         script.echo "Logging in to AWS ECR: ${registry}"
 
         script.withCredentials([
@@ -57,8 +53,6 @@ class Docker implements Serializable {
                         passwordVariable: 'PASS'
                 )
         ]) {
-//            script.sh "echo ${script.PASS} | docker login -u ${script.USER} --password-stdin"
-//            script.sh 'echo "$PASS" | docker login -u "$USER" --password-stdin'
             script.sh "echo \"\$PASS\" | docker login -u \"\$USER\" --password-stdin ${registry}"
         }
     }
