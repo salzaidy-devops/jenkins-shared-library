@@ -1,6 +1,6 @@
 #! /user/bin/env groovy
 
-import com.example.Docker;
+import com.salzaidy.jenkins.docker.Docker;
 
 def call(String imageName) {
     return new Docker(this).dockerPush(imageName)
