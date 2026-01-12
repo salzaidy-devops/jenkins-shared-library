@@ -15,4 +15,22 @@ class MavenTool implements Serializable {
     }
 
 
+    String projectName() {
+        return script.sh(returnStdout: true, script: "mvn -q -Dexpression=project.artifactId -DforceStdout help:evaluate").trim()
+    }
+
+    String bumpPatchSnapshot() {
+        script.echo "Incrementing Maven patch version (keeping -SNAPSHOT)..."
+
+        script.sh """
+      mvn -q build-helper:parse-version versions:set \
+        -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT \
+        versions:commit
+    """
+
+        def newVersion = script.sh(returnStdout: true, script: "mvn -q -Dexpression=project.version -DforceStdout help:evaluate").trim()
+        script.echo "New Maven project version will be: ${newVersion}"
+        return newVersion
+    }
+
 }

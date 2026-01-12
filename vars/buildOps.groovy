@@ -10,12 +10,8 @@ def buildJar() {
     new BuildOps(this).buildJar()
 }
 
-/*
 
 def bumpVersionAndPrepareImage() {
     new BuildOps(this).setupImageNameAndBumpVersion()
 }
 
-buildOps.bumpVersionAndPrepareImage()
-
- */
