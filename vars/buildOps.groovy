@@ -12,6 +12,6 @@ def buildJar() {
 
 
 def bumpVersionAndPrepareImage() {
-    new BuildOps(this).setupImageNameAndBumpVersion()
+    new BuildOps(this).bumpVersionAndPrepareImage()
 }
 
