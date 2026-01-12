@@ -8,4 +8,11 @@ class MavenTool implements Serializable {
         script.echo "Testing with Maven..."
         script.sh "mvn -q test"
     }
+
+    void buildJar() {
+        script.echo "Building jar with Maven (package)..."
+        script.sh "mvn -q -DskipTests package"
+    }
+
+
 }

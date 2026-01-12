@@ -21,4 +21,19 @@ class BuildOps implements Serializable {
             new MavenTool(script).test()
         }
     }
+
+
+    void buildJar() {
+        def type = new BuildToolDetector(script).detect()
+        script.echo "Building jar using build tool: ${type}"
+
+        if (type == 'gradle') {
+            new GradleTool(script).buildJar()
+        } else {
+            new MavenTool(script).buildJar()
+        }
+    }
+
+
+
 }

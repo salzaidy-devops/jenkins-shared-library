@@ -6,20 +6,16 @@ def test() {
     new BuildOps(this).test()
 }
 
+def buildJar() {
+    new BuildOps(this).buildJar()
+}
+
 /*
 
 def bumpVersionAndPrepareImage() {
     new BuildOps(this).setupImageNameAndBumpVersion()
 }
 
-def buildJar() {
-    new BuildOps(this).buildJar()
-}
-
-
-
 buildOps.bumpVersionAndPrepareImage()
-buildOps.buildJar()
-
 
  */
